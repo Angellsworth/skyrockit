@@ -1,0 +1,14 @@
+<!-- views/partials/_navbar.ejs -->
+
+<nav>
+    <!-- display links dynamically whether or not user is logged in -->
+    <% if(user) { %> 
+    <a href="/users/<%= user._id %>/applications">Your Apps</a>
+    <a href="/auth/sign-out">Sign Out</a>
+    <!-- if they are not signed in, we offer -->
+    <% } else { %>
+    <a href="/auth/sign-in">Sign In</a>
+    <a href="/auth/sign-up">Sign Up</a>
+    <% } %>
+  </nav>
+  
