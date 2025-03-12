@@ -7,7 +7,13 @@ const User = require('../models/user.js')
 //GET/users/:userId/applications
 router.get('/', async (req, res) => {
     try {
-      res.render('applications/index.ejs');
+      const currentUser = await User.findById(req.session.user._id);
+
+
+      res.render('applications/index.ejs', {
+        applications: currentUser.applications
+      });
+      //pass the current user's applications to the index page
     } catch (error) {
       console.log(error);
       res.redirect('/');
