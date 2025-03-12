@@ -5,3 +5,6 @@ const isSignedIn = (req, res, next) => {
 }
 
 module.exports = isSignedIn
+
+
+//will be added to server.js before all our routes, including homepage, just in case we want to inclue conditional rendering with a user's details.
