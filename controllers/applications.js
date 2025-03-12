@@ -1,7 +1,18 @@
+// controllers/applications.js
 const express = require('express')
 const router = express.Router()
-
 const User = require('../models/user.js')
-//we require because the application is embedded in the model/user.js
+
+//you already at
+//GET/users/:userId/applications
+router.get('/', async (req, res) => {
+    try {
+      res.render('applications/index.ejs');
+    } catch (error) {
+      console.log(error);
+      res.redirect('/');
+    }
+  });
+
 
 module.exports = router;
