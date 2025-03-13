@@ -44,16 +44,19 @@ router.post('/sign-up', async (req, res) => {
     res.redirect('/');
   }
 });
-
+//READING, retrieval
 router.post('/sign-in', async (req, res) => {
   try {
     // First, get the user from the database
+    //findOne - find a single document based on criteria and store in userInDatabase
     const userInDatabase = await User.findOne({ username: req.body.username });
     if (!userInDatabase) {
       return res.send('Login failed. Please try again.');
     }
   
-    // There is a user! Time to test their password with bcrypt
+    // There is a user! Time to check if their password is correct.
+    // bcrypt is non-deterministic when hashing passwords (due to salting),
+    // but bcrypt.compareSync() is **deterministic**—it correctly checks the password.
     const validPassword = bcrypt.compareSync(
       req.body.password,
       userInDatabase.password
