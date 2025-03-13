@@ -20,19 +20,25 @@ mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+//when client sends request this is the first code that runs
+//urlencoded - decodes for us
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // app.use(morgan('dev'));
 app.use(
+  //runs next and creates a session and cookie
   session({
+    //the secret includes the key to unlock the session
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
   })
 );
+
 // passUserToView middleware must come after session middleware
 app.use(passUserToView);
 
+//this is the root route
 app.get('/', (req, res) => {
   //check if the user is signed in
   if(req.session.user) {
@@ -52,5 +58,5 @@ app.use(isSignedIn);
 app.use('/users/:userId/applications', applicationsController);
 
 app.listen(port, () => {
-  console.log(`The express app is ready on port ${port}!`);
+  console.log(`Hey Astronaut! Your Rockit is taking off on port ${port}!`);
 });
