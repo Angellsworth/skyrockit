@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
     try {
       const currentUser = await User.findById(req.session.user._id);
 
-
       res.render('applications/index.ejs', {
         applications: currentUser.applications
       });
@@ -36,4 +35,24 @@ router.post('/', async (req,res) => {
     res.redirect('/')
   }
 })
+
+//GET /users/:userId/applications/:applicationId
+router.get('/:applicationId', async (req,res) => {
+  try {
+    //look up the user that is currently logged in
+    const currentUser = await User.findById(req.session.user._id)
+    //find the subdocument in the currently logged in users applications list
+    const application = currentUser.applications.id(req.params.applicationId)
+    //render a show template with the subdocument details
+    res.render('applications/show.ejs', {
+      application//property shorthand syntax - it is convenient when a property and a value name are the same you can put it in once to not be redundant
+    })
+  } catch (error){
+    console.log(error)
+    res.redirect('/')
+  }
+  
+  
+})
+
 module.exports = router;
