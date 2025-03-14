@@ -25,9 +25,7 @@ const applicationSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true},
   password: { type: String, required: true }, // Store hashed password
-  applications: [ // Embedding applications as an array of objects
-   applicationSchema
-  ],
+  applications: [applicationSchema],// Embedding applications as an array of objects
   createdAt: { type: Date, default: Date.now }
 });
 
