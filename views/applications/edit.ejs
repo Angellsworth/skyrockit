@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+    <%- include('../partials/_head', { title: `Editing ${application.title}` }) %>
+</head>
+<body >
+  <%- include('../partials/_navbar.ejs') %>
+  
+      <div class="edit-body">
+          <h1 class="edit-title">Edit <%= application.title %> at <%= application.company %></h1>
+          
+            <form class="edit-form"
+              action="/users/<%= user._id %>/applications/<%= application._id %>?_method=PUT" 
+              method="POST">
+              
+              <label for="company">Company:</label>
+              <input type="text" name="company" id="company" class="edit-input" value="<%= application.company %>">
+              
+              <label for="title">Title:</label>
+              <input type="text" name="title" id="title" class="edit-input" value="<%= application.title %>">
+              
+              <label for="notes">Notes:</label>
+              <textarea name="notes" id="notes" class="edit-textarea"><%= application.notes %></textarea>
+              
+              <label for="postingLink">Posting Link:</label>
+              <input type="text" name="postingLink" id="postingLink" class="edit-input" value="<%= application.postingLink %>">
+              
+              <label for="status">Status:</label>
+              <select id="status" name="status" class="edit-select">
+                <option value="interested" <%= application.status === "interested" ? "selected" : "" %>>Interested</option>
+                <option value="applied" <%= application.status === "applied" ? "selected" : "" %>>Applied</option>
+                <option value="interviewing" <%= application.status === "interviewing" ? "selected" : "" %>>Interviewing</option>
+                <option value="rejected" <%= application.status === "rejected" ? "selected" : "" %>>Rejected</option>
+                <option value="accepted" <%= application.status === "accepted" ? "selected" : "" %>>Accepted</option>
+              </select>
+              
+              <button type="submit" class="edit-submit">Update Application</button>
+          </form>
+      </div>
+    
+</body>
+</html>
